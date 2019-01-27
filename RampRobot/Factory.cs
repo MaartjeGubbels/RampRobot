@@ -15,32 +15,66 @@ namespace RampRobot
         public int yRand { get; set; }
         public int Beurten { get; set; }
         public int BeweegtRobot { get; set; }
+        public int Rondes { get; set; }
+        public int rondesOver { get; set; }
         public List<Robot> AlleRobots = new List<Robot>();
         public Mechanic Mac;
         Random rnd = new Random();
 
         public void Run()
         {
-            TekenFabriek();
-            string StapMechanic = Console.ReadLine();
-            Mac.StapMech(StapMechanic, Width, Height);
-            foreach (Robot Rob in AlleRobots)
+            rondesOver = Rondes;
+            Console.WriteLine("Hallo gebruiker, welkom bij het spel Rampant Robot.\n" +
+                " Gebruik de toetsen wasd als bewegingen. Succes met het vangen van de Robots!");
+            for (int turn = 0; turn < Rondes; turn++)
             {
-                int Rstap = rnd.Next(0, 3);
-                Rob.StapRob(Width, Height, Rstap);
+
+                Console.WriteLine("Je hebt nog {0} pogingen over", rondesOver);
+                rondesOver--;
+                TekenFabriek();
+                string StapMechanic = Console.ReadLine();
+                Mac.StapMech(StapMechanic, Width, Height);
+
+                if (AlleRobots.Count != 0)
+                {
+                    for (int i = AlleRobots.Count - 1; i >= 0; i--)
+                    {
+                        int Rstap = rnd.Next(0, 3);
+                        AlleRobots[i].StapRob(Width, Height, Rstap);
+                        WegRobot(Mac.xpos, Mac.ypos, AlleRobots[i].xRobot, AlleRobots[i].yRobot, AlleRobots[i]);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Alle Robots zijn m gesmeerd");
+                    break;
+                }
+
+                if (rondesOver == 0)
+                {
+                    Console.WriteLine("U heeft het spel verloren, uw pogingen zijn op");
+                }
             }
-            TekenFabriek();
 
         }
 
-
-        public Factory(int Width, int Height, int AantalRobots)
+        public Factory(int Width, int Height, int AantalRobots, int Rondes)
         {
             this.Width = Width;
             this.Height = Height;
             this.AantalRobots = AantalRobots;
+            this.Rondes = Rondes;
+
             Mac = new Mechanic(0, 0);
             PlaatsRobots();
+        }
+
+        public void WegRobot(int xpos, int ypos, int xRobot, int yRobot, Robot Rob)
+        { 
+                if (xpos == xRobot && ypos == yRobot)
+                {
+                    AlleRobots.Remove(Rob);
+                }
         }
 
         public bool IsRobot(int xRobot, int yRobot, List<Robot> AlleRobots)

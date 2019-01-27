@@ -10,7 +10,7 @@ namespace RampRobot
     {
         static void Main(string[] args)
         {
-            Factory fabriekje = new Factory(5, 5, 4);
+            Factory fabriekje = new Factory(5, 5, 4, 1000);
             fabriekje.Run();
 
             Console.ReadLine();
