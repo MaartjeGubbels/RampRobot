@@ -19,6 +19,7 @@ namespace RampRobot
             this.yRobot = yRobot;
         }
 
+        // methode om de robot te laten lopen
         public void StapRob(int width, int height, int Rstap)
         {
             if (Rstap == 0)

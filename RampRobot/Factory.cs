@@ -21,6 +21,7 @@ namespace RampRobot
         public Mechanic Mac;
         Random rnd = new Random();
 
+        // creeer de fabriek en maak de mechanics en robot
         public void Run()
         {
             rondesOver = Rondes;
@@ -57,7 +58,7 @@ namespace RampRobot
             }
 
         }
-
+        // method om de fabriek te creeeren inclusief robots en mechanic
         public Factory(int Width, int Height, int AantalRobots, int Rondes)
         {
             this.Width = Width;
@@ -69,6 +70,7 @@ namespace RampRobot
             PlaatsRobots();
         }
 
+        // method om de robot te laten verdwijnen
         public void WegRobot(int xpos, int ypos, int xRobot, int yRobot, Robot Rob)
         { 
                 if (xpos == xRobot && ypos == yRobot)
@@ -77,6 +79,7 @@ namespace RampRobot
                 }
         }
 
+        // method om de robots te plaatsen
         public bool IsRobot(int xRobot, int yRobot, List<Robot> AlleRobots)
         {
             foreach (Robot robbie in AlleRobots)
@@ -90,7 +93,7 @@ namespace RampRobot
             return false;
         }
 
-
+        // teken de fabriek 
         public void TekenFabriek()
         {
             for (int i = 0; i < Width; i++)
@@ -115,6 +118,7 @@ namespace RampRobot
             
         }
 
+        // method om te checken of er een robot staat
         public Robot CheckCellForRobot(int x, int y)
         {
             foreach (Robot robot in AlleRobots)
@@ -127,6 +131,7 @@ namespace RampRobot
             return null;
         }
 
+        // plaats de robots
         public void PlaatsRobots()
         {
             while (AlleRobots.Count < AantalRobots)

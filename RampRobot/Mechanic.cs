@@ -17,6 +17,7 @@ namespace RampRobot
             this.ypos = ypos;
         }
 
+        // method om de mechanic te laten lopen
         public void StapMech(string StapMechanic, int width, int height)
         {
             foreach (char Stap in StapMechanic)
